@@ -79,7 +79,7 @@ class MainWindow:
         self.busy_sliding = False
         self.clock = ""
         self.genre_stringvar = tk.StringVar(master = root, value = "drum-and-bass")
-        self.testhtml = open("./test.html", "r").read()
+        self.testhtml = open("./etc/dummy/test.html", "r").read()
         self.url = "https://www.beatport.com/genre/{}/1/releases?per-page={}"
         self.query_file = "./etc/queries"
         self.genre_list = ['drum-and-bass', 'house', 'techno']
@@ -125,7 +125,7 @@ class MainWindow:
             #self.song_length = pygame.mixer.Sound(BytesIO(response.content).read()).get_length()
         else:
             self.log_status('Loading test mp3...')
-            pygame.mixer.music.load('preview.mp3')
+            pygame.mixer.music.load('./etc/dummy/preview.mp3')
             #self.song_length = pygame.mixer.Sound('previewtest.mp3').get_length() * 1000000
         self.preview_searchbar.config(to = self.song_length)
         self.log_status('Mp3 loaded, playing...')
@@ -404,7 +404,7 @@ class MainWindow:
         self.status_bar = Label(root, bd = 2, relief = "sunken", anchor = "w")
         self.time_elapsed = Label(text="0:00:00")
         self.preview_searchbar = Scale( root, from_=0, to=100, orient=HORIZONTAL, width = 10, bg='darkgrey', highlightcolor='black', relief='sunken', resolution=0.1, troughcolor='darkgrey', showvalue=0)
-        img_o = Image.open('wave.png')
+        img_o = Image.open('./etc/dummy/wave.png')
         img_o = img_o.resize((850, 125), Image.ANTIALIAS)
         img = ImageTk.PhotoImage(img_o)
         self.waveform_view = Label(root, image = img, background = 'darkgrey')

@@ -220,9 +220,11 @@ class MainWindow:
     def display(self, song, matching_artist):
         global song_dict
         if len(song['artists'])>1:
+            print song['artists']
+            artistlist = ",  ".join([v['name'] for v in song['artists']])
             fmt_song = "{} (VA)".format(song['title'])
             
-            artist_row = "List of Various Artists:    {}\n".format(",  ".join(song['artists']))
+            artist_row = "List of Various Artists:    {}\n".format(artistlist)
             title_row = 'Title:   {}\n\n'.format(song['title'])
         else:
             fmt_song = '{} - {}'.format(matching_artist, song['title'])
@@ -323,7 +325,7 @@ class MainWindow:
                     self.display(song, artist)
                     break
                         
-    def readln(self, filename="./etc/artists.txt"):
+    def readln(self, filename="./etc/queries.txt"):
         self.data_file = open(filename, "r")
         self.stored_queries = [x.strip() for x in self.data_file.readlines()]
         self.data_file.close()
@@ -331,7 +333,7 @@ class MainWindow:
 
     def refresh(self):
         self.info_textbox.delete('1.0', END) 
-        self.queries = self.readln("./etc/artists.txt")
+        self.queries = self.readln("./etc/queries.txt")
         if not testing:
             data = self.get_releasepage()
         else:
@@ -470,7 +472,7 @@ class QueryManager:
         self.parent = parent
         self.create_widgets()
 
-    def readln(self, filename="./etc/artists.txt"):
+    def readln(self, filename="./etc/queries.txt"):
         self.data_file = open(filename, "r")
         self.stored_queries = [x.strip() for x in self.data_file.readlines()]
         self.data_file.close()
@@ -546,7 +548,7 @@ class QueryManager:
         self.query_listbox.focus_force()
 
 
-    def writequeries(self, queries, mode = 'add', filename="./etc/artists.txt"):
+    def writequeries(self, queries, mode = 'add', filename="./etc/queries.txt"):
         #print("Saving queries... " + queries)
         confirm_delete = False
         stored_queries = self.readln(filename)
